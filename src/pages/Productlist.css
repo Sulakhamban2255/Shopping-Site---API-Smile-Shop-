@@ -1,0 +1,55 @@
+/* .header-row {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+  }
+  
+  .shop-logo {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .welcome-text {
+    font-size: 2rem;
+    color: #343a40;
+  } */
+  
+  .shop-name {
+    color: #007bff;
+  }
+  
+  .product-row {
+    margin: 20px 0;
+  }
+  
+  .product-card {
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-image {
+    height: 360px;
+    object-fit: cover;
+  }
+  
+  .product-title {
+    font-size: 1.25rem;
+    color: #343a40;
+  }
+  
+  .product-text {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .product-price {
+    color: #28a745;
+  }
+  
+  /* .product-rating {
+    color: #ffc107;
+  }
+   */
