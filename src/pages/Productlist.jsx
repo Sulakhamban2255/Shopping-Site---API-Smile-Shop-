@@ -5,22 +5,37 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./Productlist.css"; // Add your CSS file
+import axios from "axios";
+import { Link } from "react-router-dom";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
+import { InputGroup } from "react-bootstrap";
 
 function Productlist() {
   const [product, setProduct] = useState([]);
+  const [search, setSearch] = useState();
 
   const fetchData = async () => {
-    const data = await fetch("https://fakestoreapi.com/products");
-    data.json().then((data) => setProduct(data));
-
-    // .catch((error) => console.error("Error fetching data:", error));
+    const result = await axios.get("https://fakestoreapi.com/products");
+    console.log(result.data);
+    setProduct(result.data);
+  };
+  const SearchData = () => {
+    const dataSearch = product.filter((i) =>
+      (i.title + i.category)
+        .toLowerCase()
+        .trim()
+        .includes(search.toLowerCase().trim())
+    );
+    setProduct(dataSearch);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [search]);
 
   console.log(product);
+  console.log(search);
 
   return (
     <div>
@@ -38,6 +53,17 @@ function Productlist() {
               Welcome to your Shopping world{" "}
               <span className="shop-name">Smile Shop</span>
             </h2>
+            <FloatingLabel
+              onChange={(e) => setSearch(e.target.value)}
+              controlId="floatingPassword"
+            >
+              <InputGroup className="mt-4">
+                <Form.Control type="search" placeholder="Search" />
+                <Button onClick={SearchData}>
+                  <i className="bi bi-search"> Search</i>
+                </Button>
+              </InputGroup>
+            </FloatingLabel>
           </Col>
         </Row>
       </Container>
@@ -45,46 +71,48 @@ function Productlist() {
         <Row className="product-row">
           {product.map((i) => (
             <Col lg={3} md={4} sm={6} key={i.id}>
-              <Card className="product-card">
-                <Card.Img
-                  style={{ height: "360px" }}
-                  className="product-image"
-                  variant="top"
-                  src={i.image}
-                />
-                <Card.Body>
-                  <Card.Title className="product-title">
-                    {i.title.length > 35
-                      ? i.title.slice(0, 35) + "..."
-                      : i.title}
-                  </Card.Title>
-                  <Card.Text className="product-text">
-                    {i.category}
-                    <br />
-                    <h5 className="product-price">${i.price}</h5>
-                    <br />
-                    <b className="product-rating">
-                      Rating:{" "}
-                      <span
-                        className={
-                          i.rating.rate > 4
-                            ? "text-success"
-                            : i.rating.rate > 3
-                            ? "text-warning"
-                            : "text-danger"
-                        }
-                      >
-                        <i className="fa-regular fa-star"></i>
-                        <i className="fa-regular fa-star"></i>
-                        <i className="fa-regular fa-star"></i>
-                        <i className="fa-regular fa-star"></i>
-                        <i className="fa-solid fa-star"></i>
-                      </span>{" "}
-                    </b>
-                  </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-              </Card>
+              <Link to={`/view/${i.id}`} style={{ textDecoration: "none" }}>
+                <Card className="product-card">
+                  <Card.Img
+                    style={{ height: "360px" }}
+                    className="product-image"
+                    variant="top"
+                    src={i.image}
+                  />
+                  <Card.Body>
+                    <Card.Title className="product-title">
+                      {i.title.length > 35
+                        ? i.title.slice(0, 35) + "..."
+                        : i.title}
+                    </Card.Title>
+                    <Card.Text className="product-text">
+                      {i.category}
+                      <br />
+                      <h5 className="product-price">${i.price}</h5>
+                      <br />
+                      <b className="product-rating">
+                        Rating:{" "}
+                        <span
+                          className={
+                            i.rating.rate > 4
+                              ? "text-success"
+                              : i.rating.rate > 3
+                              ? "text-warning"
+                              : "text-danger"
+                          }
+                        >
+                          <i className="fa-regular fa-star"></i>
+                          <i className="fa-regular fa-star"></i>
+                          <i className="fa-regular fa-star"></i>
+                          <i className="fa-regular fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                        </span>{" "}
+                      </b>
+                    </Card.Text>
+                    <Button variant="primary">Go somewhere</Button>
+                  </Card.Body>
+                </Card>
+              </Link>
             </Col>
           ))}
         </Row>

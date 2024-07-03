@@ -7,17 +7,19 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 function Header() {
   return (
     <div>
-    <Navbar className="bg-body-tertiary">
+    <Navbar className="bg-body-dark">
         <Container>
           <Navbar.Brand href="#home">
             <img
               alt=""
-              src="/img/logo.svg"
-              width="30"
-              height="30"
+              src="https://img.freepik.com/free-vector/gradient-instagram-shop-logo-template_23-2149704603.jpg"
+              width="40"
+              height="40"
               className="d-inline-block align-top"
             />{' '}
-            React Bootstrap
+            <span style={{color:'white'}}>
+              Smile Shop 
+            </span>
           </Navbar.Brand>
         </Container>
       </Navbar>
